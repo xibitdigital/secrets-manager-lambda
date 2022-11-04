@@ -1,0 +1,22 @@
+{
+  "name": "lambda-secrets-manager",
+  "version": "1.0.0",
+  "description": "lambda to manage secrets",
+  "main": "src/index.js",
+  "scripts": {
+    "unit": "REGION='eu-west-2' jest test/unit  --verbose --coverage",
+    "unit:watch": "REGION='eu-west-2' jest test/unit  --verbose"
+  },
+  "keywords": [
+    "aws",
+    "secretsmanager",
+    "lambda"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.1223.0",
+    "eslint": "^8.24.0",
+    "jest": "^27.0.6"
+  }
+}
