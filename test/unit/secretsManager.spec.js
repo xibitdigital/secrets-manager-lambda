@@ -2,7 +2,7 @@ const { getSecret, updateSecret } = require("../../src/secretsManager");
 
 const getSecretValueCommandSampleRensponseMock = {
   foo: "foo",
-  "ICM-foo": "bar"
+  "FOO-foo": "bar"
 };
 const updateSecretCommandRensponseMock = {
   ARN: "arn:aws:secretsmanager:eu-west-2:xxx:secret:test-secret-rotation-xxx",

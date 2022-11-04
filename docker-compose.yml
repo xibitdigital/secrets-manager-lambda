@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  localstack:
+    container_name: localstack_main
+    image: localstack/localstack:latest
+    environment:
+      - DATA_DIR=/tmp/localstack/data
+      - DEBUG=1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - PORT_WEB_UI=8080
+      - HOSTNAME_EXTERNAL=loclastack
+      - AWS_ACCESS_KEY=test
+      - AWS_SECRET_KEY_ACCESS=test
+      - LAMDA_DOCKER_NETWORK=host
+      - LAMBDA_EXECUTOR=docker
+    ports:
+      - "4566-4583:4566-4583"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    volumes:
+      - "${TEMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"

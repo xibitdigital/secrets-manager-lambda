@@ -6,19 +6,19 @@ const commandsSample = [
   {
     action: "rotate",
     secretArn: "foo",
-    keys: ["ICM"]
+    keys: ["FOO"]
   },
   {
     action: "copy",
     secretSourceArn: "foo",
     secretDestination: "bar",
-    keys: ["ICM"]
+    keys: ["FOO"]
   }
 ];
 
 const getSecretValueCommandSampleRensponseMock = {
   foo: "foo",
-  "ICM-foo": "bar"
+  "FOO-foo": "bar"
 };
 const updateSecretCommandRensponseMock = {
   ARN: "arn:aws:secretsmanager:eu-west-2:xxx:secret:test-secret-rotation-xxx",
