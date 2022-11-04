@@ -27,7 +27,7 @@ const handlerWithCommands = (commands) => async (event) => {
   }
 };
 
-const handler = handlerWithCommands(JSON.parse(COMMANDS));
+const handler = handlerWithCommands(COMMANDS);
 
 module.exports = {
   handler,
