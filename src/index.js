@@ -2,7 +2,7 @@ const { handleRotateCommand } = require("./rotateCommand");
 const { handleCopyCommand } = require("./copyCommand");
 
 const { COMMANDS } = process.env;
-
+COMMANDS//?
 const handlerWithCommands = (commands) => async (event) => {
   console.log("event triggered", JSON.stringify(event));
 

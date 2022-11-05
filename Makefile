@@ -35,7 +35,7 @@ _create-function:
     --handler index.handler \
 	--runtime nodejs16.x \
 	--role arn:aws:iam::000000000000:role/lambda-ex \
-	--environment "Variables={REGION=:us-east-1,COMMANDS='[{"action":"rotate","secretArn":"my_test_secret","keys":["pass"]}]'}"
+	--environment "Variables={AWS_REGION=:us-east-1,COMMANDS='[{"action":"rotate","secretArn":"my_test_secret","keys":["pass"]}]'}"
 
 _zip-solution:
 	rm -rf ./index.zip

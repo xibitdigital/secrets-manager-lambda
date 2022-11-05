@@ -2,7 +2,7 @@ const { handlerWithCommands } = require("../../src/index");
 
 const emptyEvent = {};
 
-const commandsSample = [
+const commandsSample = JSON.stringify([
   {
     action: "rotate",
     secretArn: "foo",
@@ -14,7 +14,7 @@ const commandsSample = [
     secretDestination: "bar",
     keys: ["FOO"]
   }
-];
+]);
 
 const getSecretValueCommandSampleRensponseMock = {
   foo: "foo",
@@ -29,7 +29,7 @@ const updateSecretCommandRensponseMock = {
 jest.mock("aws-sdk", () => ({
   SecretsManager: function () {
     return {
-      getSecretValue: ({ SecretId }) => {
+      getSecretValue: () => {
         {
           return {
             promise: () => {
@@ -40,7 +40,7 @@ jest.mock("aws-sdk", () => ({
           };
         }
       },
-      updateSecret: ({ secret }) => {
+      updateSecret: () => {
         {
           return {
             promise: () => updateSecretCommandRensponseMock

@@ -1,4 +1,6 @@
 module.exports = function (wallaby) {
+  require("dotenv").config();
+
   return {
     files: [
       "src/**/*.js",
@@ -11,8 +13,9 @@ module.exports = function (wallaby) {
     tests: ["test/unit/**/*.spec.js"],
     env: {
       type: "node",
+      runner: "node",
       params: {
-        env: "REGION=eu-west-2;SECRET_ARN=foo"
+        env: "REGION=porco"
       }
     },
     testFramework: "jest",
