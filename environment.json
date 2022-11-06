@@ -1,0 +1,6 @@
+{
+    "Variables": {
+        "AWS_REGION": "eu-west-2",
+        "COMMANDS": "[{'action':'rotate','secretArn':'my_test_secret','keys':['password']}]"
+    }
+}

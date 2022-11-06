@@ -16,6 +16,11 @@ const commandsSample = [
   }
 ];
 
+const responseMessage = (code, body) => ({
+  statusCode: code,
+  body: body
+});
+
 const getSecretValueCommandSampleRensponseMock = {
   foo: "foo",
   "FOO-foo": "bar"
@@ -69,14 +74,14 @@ describe("handler", () => {
 
       const res = await handlerWithCommands(commandsSample)(emptyEvent);
 
-      expect(res).toEqual(expectedResult);
+      expect(res).toEqual(responseMessage(200, expectedResult));
     });
 
     it("should return false if no commands are specified", async () => {
-      const expectedResult = false;
+      const expectedResult = "no commands specified";
       const res = await handlerWithCommands("")(emptyEvent);
 
-      expect(res).toEqual(expectedResult);
+      expect(res).toEqual(responseMessage(400, expectedResult));
     });
   });
 });

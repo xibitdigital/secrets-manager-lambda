@@ -20,9 +20,15 @@ const handlerWithCommands = (commands) => async (event) => {
       }
     }
 
-    return data;
+    return {
+      statusCode: 200,
+      body: data
+    };
   } else {
-    return false;
+    return {
+      statusCode: 400,
+      body: "no commands specified"
+    };
   }
 };
 
