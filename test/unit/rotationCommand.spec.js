@@ -45,7 +45,7 @@ describe("rotateCommand", () => {
 
   describe("handleRotationCommand", () => {
     it("should rotate a secret", async () => {
-      const expectedResult = true;
+      const expectedResult = updateSecretCommandRensponseMock;
 
       const res = await handleRotateCommand(commandSample);
       expect(res).toEqual(expectedResult);

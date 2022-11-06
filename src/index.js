@@ -1,33 +1,32 @@
 const { handleRotateCommand } = require("./rotateCommand");
 const { handleCopyCommand } = require("./copyCommand");
-
 const { COMMANDS } = process.env;
-COMMANDS//?
+
+const cmds = JSON.parse(COMMANDS);
+
 const handlerWithCommands = (commands) => async (event) => {
-  console.log("event triggered", JSON.stringify(event));
+  let data = [];
 
   if (Array.isArray(commands)) {
-    commands.forEach(async (command) => {
-      if (command.action === "rotate") {
-        console.log("rotating secret", JSON.stringify(command));
+    for (let index = 0; index < commands.length; index++) {
+      const command = commands[index];
 
-        await handleRotateCommand(command);
+      if (command.action === "rotate") {
+        data = [...data, await handleRotateCommand(command)];
       }
 
       if (command.action === "copy") {
-        console.log("copying secret", JSON.stringify(command));
-
-        await handleCopyCommand(command);
+        data = [...data, await handleCopyCommand(command)];
       }
-    });
+    }
 
-    return true;
+    return data;
   } else {
     return false;
   }
 };
 
-const handler = handlerWithCommands(JSON.parse(COMMANDS));
+const handler = handlerWithCommands(cmds);
 
 module.exports = {
   handler,

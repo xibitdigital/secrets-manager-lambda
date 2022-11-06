@@ -13,13 +13,14 @@ const filterObjectByKeys = (searchKey) =>
 const filterSecret = (secret, keys) => filterObjectByKeys(findInKeys(keys))(secret);
 
 const handleCopyCommand = async (command) => {
-  const data = await getSecret(command.secretSourceArn);
+  const { secretSourceArn, secretDestination, keys } = command;
+  const data = await getSecret(secretSourceArn);
 
   if (Object.keys(data).length > 0) {
-    const res = filterSecret(data, command.keys);
-    await updateSecret(command.secretARN, res);
+    const filteredSecret = filterSecret(data, keys);
+    const res = await updateSecret(secretDestination, filteredSecret);
 
-    return true;
+    return res;
   }
 
   return false;

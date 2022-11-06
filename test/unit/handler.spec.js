@@ -2,7 +2,7 @@ const { handlerWithCommands } = require("../../src/index");
 
 const emptyEvent = {};
 
-const commandsSample = JSON.stringify([
+const commandsSample = [
   {
     action: "rotate",
     secretArn: "foo",
@@ -14,7 +14,7 @@ const commandsSample = JSON.stringify([
     secretDestination: "bar",
     keys: ["FOO"]
   }
-]);
+];
 
 const getSecretValueCommandSampleRensponseMock = {
   foo: "foo",
@@ -54,7 +54,19 @@ jest.mock("aws-sdk", () => ({
 describe("handler", () => {
   describe("handlerWithCommands", () => {
     it("should run all commands", async () => {
-      const expectedResult = true;
+      const expectedResult = [
+        {
+          ARN: "arn:aws:secretsmanager:eu-west-2:xxx:secret:test-secret-rotation-xxx",
+          Name: "test-secret-rotation",
+          VersionId: "0119bbdf-0000-0000-0000-b01be4f52741"
+        },
+        {
+          ARN: "arn:aws:secretsmanager:eu-west-2:xxx:secret:test-secret-rotation-xxx",
+          Name: "test-secret-rotation",
+          VersionId: "0119bbdf-0000-0000-0000-b01be4f52741"
+        }
+      ];
+
       const res = await handlerWithCommands(commandsSample)(emptyEvent);
 
       expect(res).toEqual(expectedResult);

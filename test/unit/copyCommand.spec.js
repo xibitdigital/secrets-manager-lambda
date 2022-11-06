@@ -55,7 +55,7 @@ describe("copyCommand", () => {
 
   describe("handleCopyCommand", () => {
     it("should copy a secret with the defined keys", async () => {
-      const expectedResult = true;
+      const expectedResult = updateSecretCommandRensponseMock;
 
       const res = await handleCopyCommand(commandSample);
       expect(res).toEqual(expectedResult);
