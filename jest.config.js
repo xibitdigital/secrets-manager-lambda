@@ -1,4 +1,5 @@
 module.exports = {
+  setupFiles: ["dotenv/config"],
   collectCoverage: true,
   coverageReporters: ["json", "html"],
   testPathIgnorePatterns: ["<rootDir>/node_modules"],

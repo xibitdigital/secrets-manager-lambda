@@ -4,8 +4,8 @@
   "description": "lambda to manage secrets",
   "main": "src/index.js",
   "scripts": {
-    "unit": "REGION='eu-west-2' jest test/unit  --verbose --coverage",
-    "unit:watch": "REGION='eu-west-2' jest test/unit  --verbose"
+    "unit": "jest test/unit  --verbose --coverage",
+    "unit:watch": "jest test/unit  --verbose"
   },
   "keywords": [
     "aws",
@@ -16,6 +16,7 @@
   "license": "ISC",
   "devDependencies": {
     "aws-sdk": "^2.1223.0",
+    "dotenv": "^16.0.3",
     "eslint": "^8.24.0",
     "jest": "^27.0.6"
   }

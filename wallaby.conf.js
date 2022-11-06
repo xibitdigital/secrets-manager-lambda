@@ -1,24 +1,28 @@
-module.exports = function (wallaby) {
+const environment = Object.entries(require("dotenv").config()["parsed"])
+  .map((x) => `${x[0]}=${x[1]}`)
+  .join(";");
+
+module.exports = function () {
+  process.env.AWS_REGION = "eu-west-2";
+  process.env.COMMANDS = JSON.stringify([
+    { action: "rotate", secretArn: "foo", keys: ["FOO"] },
+    { action: "copy", secretSourceArn: "foo", secretDestination: "bar", keys: ["FOO"] }
+  ]);
+
   return {
     files: [
-      "src/**/*.js",
-      "src/**/*.json",
-      "test/**/*.json",
-      "test/**/*.mock.js",
-      "!test/*.spec.js",
-      "!node_modules"
+      "src/**/*.js" // adjust if required
     ],
-    tests: ["test/unit/**/*.spec.js"],
+
+    tests: [
+      "test/**/*.spec.js" // adjust if required
+    ],
+
     env: {
-      type: "node",
+      runner: "node",
       params: {
-        env: "REGION=eu-west-2;SECRET_ARN=foo"
+        env: environment
       }
-    },
-    testFramework: "jest",
-    workers: {
-      recycle: true
-    },
-    debug: true
+    }
   };
 };

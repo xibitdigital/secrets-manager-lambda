@@ -26,13 +26,15 @@ const rotateSecret = (secret, keys, tokenLength = 32) =>
   }, {});
 
 const handleRotateCommand = async (command) => {
-  const data = await getSecret(command.secretARN);
+  const { secretArn, keys } = command;
+
+  const data = await getSecret(secretArn);
 
   if (Object.keys(data).length > 0) {
-    const updatedSecret = rotateSecret(data, command.keys);
-    await updateSecret(command.secretARN, updatedSecret);
+    const updatedSecret = rotateSecret(data, keys);
+    const newSecret = await updateSecret(secretArn, updatedSecret);
 
-    return true;
+    return newSecret;
   }
 
   return false;

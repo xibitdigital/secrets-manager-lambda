@@ -2,7 +2,7 @@ const { getSecret, updateSecret } = require("../../src/secretsManager");
 
 const getSecretValueCommandSampleRensponseMock = {
   foo: "foo",
-  "ICM-foo": "bar"
+  "FOO-foo": "bar"
 };
 const updateSecretCommandRensponseMock = {
   ARN: "arn:aws:secretsmanager:eu-west-2:xxx:secret:test-secret-rotation-xxx",
@@ -13,7 +13,7 @@ const updateSecretCommandRensponseMock = {
 jest.mock("aws-sdk", () => ({
   SecretsManager: function () {
     return {
-      getSecretValue: ({ SecretId }) => {
+      getSecretValue: () => {
         {
           return {
             promise: () => {
@@ -24,7 +24,7 @@ jest.mock("aws-sdk", () => ({
           };
         }
       },
-      updateSecret: ({ secret }) => {
+      updateSecret: () => {
         {
           return {
             promise: () => updateSecretCommandRensponseMock
@@ -38,7 +38,7 @@ jest.mock("aws-sdk", () => ({
 describe("secretsManager", () => {
   describe("getSecret", () => {
     it("retrieve a secret", async () => {
-      const expectedResult = JSON.stringify(getSecretValueCommandSampleRensponseMock);
+      const expectedResult = getSecretValueCommandSampleRensponseMock;
       const res = await getSecret("foo-arn");
 
       expect(res).toEqual(expectedResult);

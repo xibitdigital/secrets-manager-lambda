@@ -1,20 +1,15 @@
 const { handleRotateCommand, rotateSecret, makeToken } = require("../../src/rotateCommand");
 
-const sampleSecret = {
-  foo: "foo",
-  "FOO-bar": "bar"
-};
+const sampleSecret = { foo: "FrfiwOxkCT", bar: "GL30HeLOOi" };
 
 const commandSample = {
   action: "rotate",
   secretArn: "foo",
-  keys: ["FOO"]
+  keys: ["bar"]
 };
 
-const getSecretValueCommandSampleRensponseMock = {
-  foo: "foo",
-  "FOO-bar": "bar"
-};
+const getSecretValueCommandSampleRensponseMock = { foo: "FrfiwOxkCT", bar: "GL30HeLOOi" };
+
 const updateSecretCommandRensponseMock = {
   ARN: "arn:aws:secretsmanager:eu-west-2:xxx:secret:test-secret-rotation-xxx",
   Name: "test-secret-rotation",
@@ -40,17 +35,17 @@ describe("rotateCommand", () => {
   });
 
   describe("rotateSecret", () => {
-    it("should update only the secret that has FOO as key", () => {
+    it("should update only the secret that has bar as key", () => {
       const expectedResult = 32;
 
-      const res = rotateSecret(sampleSecret, ["FOO"]);
-      expect(res["FOO-bar"].length).toEqual(expectedResult);
+      const res = rotateSecret(sampleSecret, ["bar"]);
+      expect(res["bar"].length).toEqual(expectedResult);
     });
   });
 
   describe("handleRotationCommand", () => {
     it("should rotate a secret", async () => {
-      const expectedResult = true;
+      const expectedResult = updateSecretCommandRensponseMock;
 
       const res = await handleRotateCommand(commandSample);
       expect(res).toEqual(expectedResult);
