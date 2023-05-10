@@ -1,5 +1,14 @@
 const { handlerWithCommands } = require("../../src/index");
 
+const { mockClient } = require("aws-sdk-client-mock");
+const {
+  SecretsManagerClient,
+  GetSecretValueCommand,
+  UpdateSecretCommand
+} = require("@aws-sdk/client-secrets-manager");
+
+const smcMock = mockClient(SecretsManagerClient);
+
 const emptyEvent = {};
 
 const commandsSample = [
@@ -31,34 +40,21 @@ const updateSecretCommandRensponseMock = {
   VersionId: "0119bbdf-0000-0000-0000-b01be4f52741"
 };
 
-jest.mock("aws-sdk", () => ({
-  SecretsManager: function () {
-    return {
-      getSecretValue: () => {
-        {
-          return {
-            promise: () => {
-              return {
-                SecretString: JSON.stringify(getSecretValueCommandSampleRensponseMock)
-              };
-            }
-          };
-        }
-      },
-      updateSecret: () => {
-        {
-          return {
-            promise: () => updateSecretCommandRensponseMock
-          };
-        }
-      }
-    };
-  }
-}));
-
 describe("handler", () => {
+  beforeEach(() => {
+    smcMock.reset();
+  });
+
   describe("handlerWithCommands", () => {
     it("should run all commands", async () => {
+      smcMock
+        .on(GetSecretValueCommand)
+        .resolves({
+          SecretString: JSON.stringify(getSecretValueCommandSampleRensponseMock)
+        })
+        .on(UpdateSecretCommand)
+        .resolves(updateSecretCommandRensponseMock);
+
       const expectedResult = [
         {
           ARN: "arn:aws:secretsmanager:eu-west-2:xxx:secret:test-secret-rotation-xxx",

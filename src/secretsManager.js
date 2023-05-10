@@ -1,9 +1,12 @@
-const aws = require("aws-sdk");
+const {
+  SecretsManagerClient,
+  GetSecretValueCommand,
+  UpdateSecretCommand
+} = require("@aws-sdk/client-secrets-manager");
 
 const { AWS_REGION } = process.env;
 
-
-const client = new aws.SecretsManager({
+const client = new SecretsManagerClient({
   region: AWS_REGION
 });
 
@@ -11,15 +14,18 @@ const getSecret = async (secretId) => {
   const params = { SecretId: secretId };
 
   try {
-    const data = await client.getSecretValue(params).promise();
+    const command = new GetSecretValueCommand(params);
+
+    const res = await client.send(command);
+
     console.log("the data has been retrieved");
 
     // Decrypts secret using the associated KMS CMK.
     // Depending on whether the secret is a string or binary, one of these fields will be populated.
-    if ("SecretString" in data) {
-      return JSON.parse(data.SecretString);
+    if ("SecretString" in res) {
+      return JSON.parse(res.SecretString);
     } else {
-      let buff = Buffer.from(data.SecretBinary, "base64");
+      const buff = Buffer.from(res.SecretBinary, "base64");
 
       return buff.toString("ascii");
     }
@@ -38,7 +44,11 @@ const updateSecret = async (data, secretArn) => {
   };
 
   try {
-    const res = await client.updateSecret(params).promise();
+    const command = new UpdateSecretCommand(params);
+
+    const res = await client.send(command);
+
+    // const res = await client.updateSecret(params).promise();
     console.log("the secret has been updated");
 
     return res;
