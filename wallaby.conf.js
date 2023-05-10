@@ -22,7 +22,7 @@ module.exports = function () {
       runner: "node",
       params: {
         env: environment
-      }
+      } 
     }
   };
 };

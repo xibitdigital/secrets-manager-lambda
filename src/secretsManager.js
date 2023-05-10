@@ -2,7 +2,6 @@ const aws = require("aws-sdk");
 
 const { AWS_REGION } = process.env;
 
-AWS_REGION;//?
 
 const client = new aws.SecretsManager({
   region: AWS_REGION

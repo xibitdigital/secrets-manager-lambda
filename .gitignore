@@ -3,3 +3,4 @@ coverage
 *.zip
 ./index.zip
 volume
+terraform/.terraform
