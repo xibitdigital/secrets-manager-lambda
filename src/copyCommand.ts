@@ -1,12 +1,6 @@
 import { getSecret, updateSecret } from "./secretsManager";
 import { SecretsManagerCopyCommand } from "./types";
-
-type ArityOneFn = (arg: any) => any;
-
-export const compose =
-	(...fns: ArityOneFn[]) =>
-	(p: any) =>
-		fns.reduceRight((acc: any, cur: any) => cur(acc), p);
+import { compose } from "./utils";
 
 export const findInKeys = (keys: string[]) => (str: string) =>
 	keys.filter((x) => String(str).indexOf(`${x}`) > -1);
@@ -18,8 +12,7 @@ export const filterObjectByKeys = (searchKey: any) =>
 		Object.entries,
 	);
 
-export const filterSecret = (keys: string[]) =>
-	compose(filterObjectByKeys, findInKeys(keys));
+export const filterSecret = compose(filterObjectByKeys, findInKeys);
 
 export const handleCopyCommand = async (command: SecretsManagerCopyCommand) => {
 	const { secretSourceArn, secretDestination, keys } = command;

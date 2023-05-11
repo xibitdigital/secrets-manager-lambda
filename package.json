@@ -1,9 +1,7 @@
 {
-  "name": "aws-lambda-typescript",
+  "name": "secrets-manager",
   "version": "1.0.0",
-  "description": "AWS Lambda with Typescript",
-  "license": "GPL-3.0-only",
-  "repository": "github:atombrenner/aws-lambda-typescript",
+  "description": "AWS Lambda with For secrets manager in Typescript",
   "scripts": {
     "clean": "rimraf ./build",
     "build": "npm-run-all lint format clean && tsc",
@@ -20,10 +18,7 @@
     "node": ">=16"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.329.0",
-    "aws-sdk": "^2.1375.0",
-    "install": "^0.13.0",
-    "npm": "^9.6.6"
+    "@aws-sdk/client-secrets-manager": "^3.329.0"
   },
   "devDependencies": {
     "@atombrenner/cfn-stack": "^2.0.2",

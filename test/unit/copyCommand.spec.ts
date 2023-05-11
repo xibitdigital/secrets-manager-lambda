@@ -40,7 +40,7 @@ describe("copyCommand", () => {
 		it("should create a ramdon string of 32 chars", () => {
 			const expectedResult = 1;
 			const searchKey = findInKeys(["foo", "bar"]);
-			const res = searchKey("fooooo");
+			const res = searchKey("fooooo");//?
 			expect(res.length).toEqual(expectedResult);
 		});
 	});
@@ -54,7 +54,8 @@ describe("copyCommand", () => {
 			const keysFilter = ["FOO"];
 
 			const res = filterSecret(keysFilter)(sampleSecret);
-			// expect(res).toEqual(expectedResult);
+			
+			expect(res).toEqual(expectedResult);
 		});
 	});
 
